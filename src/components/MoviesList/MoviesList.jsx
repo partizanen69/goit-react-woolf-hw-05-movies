@@ -9,7 +9,7 @@ export const MoviesList = ({ movies }) => {
   }
 
   return (
-    movies?.length &&
+    movies?.length > 0 &&
     movies.map(movie => (
       <div key={movie.id}>
         <Link to={`/movies/${movie.id}`} state={{ from: location }}>

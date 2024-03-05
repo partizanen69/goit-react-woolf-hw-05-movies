@@ -36,7 +36,7 @@ const Reviews = () => {
     return <FullContainerLoader paddingBottom="10px" paddingTop="10px" />;
   }
 
-  return review?.results?.length ? (
+  return review?.results?.length > 0 ? (
     <ReviewsStyled>
       {review.results.map(review => (
         <li key={review.id}>

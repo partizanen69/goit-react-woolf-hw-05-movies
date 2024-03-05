@@ -38,7 +38,7 @@ const Cast = () => {
   }
 
   return (
-    cast?.cast?.length && (
+    cast?.cast?.length > 0 && (
       <CastStyled>
         {cast.cast.map(item => (
           <div className="cast-item">
