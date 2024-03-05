@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { FullContainerLoader } from '../Loader/Loader';
-import { WrapStyled } from './Home.styled';
 import { fetchTrendingMovies } from '../../api/moviedb';
-import { Link } from 'react-router-dom';
+import { MoviesList } from '../../components/MoviesList/MoviesList';
+import { WrapStyled } from './Home.styled';
+import { FullContainerLoader } from '../../components/Loader/Loader';
 
 export const Home = () => {
   const [movies, setMovies] = useState(null);
@@ -22,23 +22,15 @@ export const Home = () => {
     getTrendingMovies();
   }, []);
 
-  if (movies === null) {
-    return <FullContainerLoader />;
-  }
-
   if (error) {
     return (
       <WrapStyled>Error happened while loading movies: {error}</WrapStyled>
     );
   }
 
-  return movies && movies.length ? (
-    <ul>
-      {movies.map(movie => (
-        <Link key={movie.id} to={`/movies/${movie.id}`}>
-          <li>{movie.title || movie.name}</li>
-        </Link>
-      ))}
-    </ul>
-  ) : null;
+  if (movies === null) {
+    return <FullContainerLoader />;
+  }
+
+  return <MoviesList movies={movies} />;
 };

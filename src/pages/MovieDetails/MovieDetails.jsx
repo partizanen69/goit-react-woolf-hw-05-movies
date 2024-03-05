@@ -1,7 +1,7 @@
 import { Suspense, useEffect, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
-import { FullContainerLoader } from '../Loader/Loader';
-import { WrapStyled } from '../Loader/Loader.styled';
+import { FullContainerLoader } from '../../components/Loader/Loader';
+import { WrapStyled } from '../../components/Loader/Loader.styled';
 import { fetchMovieDetails } from '../../api/moviedb';
 import {
   AdditionalInfoStyled,
@@ -9,6 +9,7 @@ import {
   MovieDetailsStyled,
   MovieInfoStyled,
 } from './MovieDetails.styled';
+import { BASE_PATH } from '../../components/App.consts';
 
 const MovieDetails = () => {
   const location = useLocation();
@@ -58,7 +59,11 @@ const MovieDetails = () => {
       <MovieInfoStyled>
         <div className="movie-photo">
           <img
-            src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
+            src={
+              movie.poster_path
+                ? `https://image.tmdb.org/t/p/w300/${movie.poster_path}`
+                : `${BASE_PATH}/default.jpg`
+            }
             alt={movie.title || movie.name}
           />
         </div>

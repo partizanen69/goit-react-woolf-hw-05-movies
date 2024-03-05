@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+axios.defaults.baseURL = 'https://api.themoviedb.org/3';
+
 const headers = {
   accept: 'application/json',
   Authorization:
@@ -8,12 +10,9 @@ const headers = {
 
 export const fetchTrendingMovies = async () => {
   try {
-    const { data } = await axios.get(
-      'https://api.themoviedb.org/3/trending/all/day?language=en-US',
-      {
-        headers,
-      }
-    );
+    const { data } = await axios.get('/trending/all/day?language=en-US', {
+      headers,
+    });
     return { result: { movies: data.results } };
   } catch (err) {
     console.error('fetchTrendingMovies error: ', err);
@@ -23,12 +22,9 @@ export const fetchTrendingMovies = async () => {
 
 export const fetchMovieDetails = async ({ movieId }) => {
   try {
-    const { data } = await axios.get(
-      `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`,
-      {
-        headers,
-      }
-    );
+    const { data } = await axios.get(`/movie/${movieId}?language=en-US`, {
+      headers,
+    });
     console.info('fetchMovieDetails result', { data });
     return { result: data };
   } catch (err) {
@@ -40,7 +36,7 @@ export const fetchMovieDetails = async ({ movieId }) => {
 export const fetchMovieCast = async ({ movieId }) => {
   try {
     const { data } = await axios.get(
-      `https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`,
+      `/movie/${movieId}/credits?language=en-US`,
       {
         headers,
       }
@@ -56,7 +52,7 @@ export const fetchMovieCast = async ({ movieId }) => {
 export const fetchMovieReview = async ({ movieId }) => {
   try {
     const { data } = await axios.get(
-      `https://api.themoviedb.org/3/movie/${movieId}/reviews?language=en-US&page=1`,
+      `/movie/${movieId}/reviews?language=en-US&page=1`,
       {
         headers,
       }
@@ -72,18 +68,15 @@ export const fetchMovieReview = async ({ movieId }) => {
 export const fetchMoviesByKeyword = async ({ keyword }) => {
   console.info('asdfsdf', { keyword });
   try {
-    const { data } = await axios.get(
-      `https://api.themoviedb.org/3/search/movie`,
-      {
-        headers,
-        params: {
-          include_adult: false,
-          language: 'en-US',
-          page: 1,
-          query: keyword,
-        },
-      }
-    );
+    const { data } = await axios.get(`/search/movie`, {
+      headers,
+      params: {
+        include_adult: false,
+        language: 'en-US',
+        page: 1,
+        query: keyword,
+      },
+    });
     console.info('fetchMoviesByKeyword result', { data });
     return { result: data.results };
   } catch (err) {

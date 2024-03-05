@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { WrapStyled } from '../Home/Home.styled';
+import { WrapStyled } from '../../pages/Home/Home.styled';
 import { FullContainerLoader } from '../Loader/Loader';
 import { fetchMovieCast } from '../../api/moviedb';
 import { CastStyled } from './CastStyled';
+import { BASE_PATH } from '../App.consts';
 
 const Cast = () => {
   const { movieId } = useParams();
@@ -37,15 +38,17 @@ const Cast = () => {
   }
 
   return (
-    cast &&
-    cast.cast &&
-    cast.cast.length > 0 && (
+    cast?.cast?.length && (
       <CastStyled>
         {cast.cast.map(item => (
           <div className="cast-item">
             <div>
               <img
-                src={`https://image.tmdb.org/t/p/w200/${item.profile_path}`}
+                src={
+                  item.profile_path
+                    ? `https://image.tmdb.org/t/p/w200/${item.profile_path}`
+                    : `${BASE_PATH}/default-w200.jpg`
+                }
                 alt={item.character}
               />
             </div>

@@ -1,11 +1,11 @@
 import { Link, Route, Routes } from 'react-router-dom';
 import { AppStyled, NavStyled } from './App.styled';
-import { Home } from './Home/Home';
+import { Home } from '../pages/Home/Home';
 import { Suspense, lazy } from 'react';
 
-const Movies = lazy(() => import('./Movies/Movies'));
+const Movies = lazy(() => import('../pages/Movies/Movies'));
 const Reviews = lazy(() => import('./Reviews/Reviews'));
-const MovieDetails = lazy(() => import('./MovieDetails/MovieDetails'));
+const MovieDetails = lazy(() => import('../pages/MovieDetails/MovieDetails'));
 const Cast = lazy(() => import('./Cast/Cast'));
 
 export const App = () => {

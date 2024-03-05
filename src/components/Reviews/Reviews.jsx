@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { WrapStyled } from '../Home/Home.styled';
+import { WrapStyled } from '../../pages/Home/Home.styled';
 import { FullContainerLoader } from '../Loader/Loader';
 import { fetchMovieReview } from '../../api/moviedb';
 import { ReviewsStyled } from './Reviews.styled';
@@ -36,7 +36,7 @@ const Reviews = () => {
     return <FullContainerLoader paddingBottom="10px" paddingTop="10px" />;
   }
 
-  return review && review.results && review.results.length ? (
+  return review?.results?.length ? (
     <ReviewsStyled>
       {review.results.map(review => (
         <li key={review.id}>
@@ -46,7 +46,7 @@ const Reviews = () => {
       ))}
     </ReviewsStyled>
   ) : (
-    "We don't have any review for this movie"
+    <p>"We don't have any review for this movie"</p>
   );
 };
 

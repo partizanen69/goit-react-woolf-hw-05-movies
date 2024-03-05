@@ -6,19 +6,20 @@ export const SearchBlock = ({ onSubmit }) => {
   const [searchParams] = useSearchParams();
 
   const [value, setValue] = useState(() => {
-    return searchParams.get('query');
+    return searchParams.get('query') || '';
   });
 
   const handleSubmit = e => {
+    e.preventDefault();
     onSubmit(value.trim());
   };
 
   return (
     <SearchBlockStyled>
-      <input value={value} onChange={e => setValue(e.target.value)} />
-      <button type="button" onClick={handleSubmit}>
-        Search
-      </button>
+      <form onSubmit={handleSubmit}>
+        <input value={value} onChange={e => setValue(e.target.value)} />
+        <button type="submit">Search</button>
+      </form>
     </SearchBlockStyled>
   );
 };

@@ -3,7 +3,9 @@ import { MoviesStyled } from './Movies.styled';
 import { SearchBlock } from './SearchBlock/SearchBlock';
 import { useEffect, useState } from 'react';
 import { fetchMoviesByKeyword } from '../../api/moviedb';
-import { MoviesList } from './MoviesList/MoviesList';
+import { MoviesList } from '../../components/MoviesList/MoviesList';
+import { WrapStyled } from '../Home/Home.styled';
+import { FullContainerLoader } from '../../components/Loader/Loader';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -17,7 +19,14 @@ const Movies = () => {
     if (isLoading) {
       return;
     }
-    setSearchParams({ query: keyword });
+
+    if (!keyword) {
+      setMovies(null);
+    }
+
+    setSearchParams({
+      ...(keyword ? { query: keyword } : null),
+    });
   };
 
   useEffect(() => {
@@ -44,7 +53,13 @@ const Movies = () => {
   return (
     <MoviesStyled>
       <SearchBlock onSubmit={startSearch} />
-      <MoviesList isLoading={isLoading} error={error} movies={movies} />
+      {error ? (
+        <WrapStyled>Error happened while loading movies: {error}</WrapStyled>
+      ) : isLoading ? (
+        <FullContainerLoader />
+      ) : (
+        <MoviesList movies={movies} />
+      )}
     </MoviesStyled>
   );
 };
